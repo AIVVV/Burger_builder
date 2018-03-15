@@ -1,6 +1,7 @@
 import React from 'react';
 import BuildControl from '../../common/BuildControl';
 
+// object with all ingredients that burger have
 const controls = [
   { label: 'Salad', type: 'salad' },
   { label: 'Bacon', type: 'bacon' },
@@ -25,7 +26,11 @@ const buildControls = props => {
           />
         );
       })}
-      <button disabled={!props.purchasable} className="OrderButton">
+      <button
+        className="OrderButton"
+        disabled={!props.purchasable}
+        onClick={props.ordered}
+      >
         ORDER NOW
       </button>
     </div>
