@@ -1,22 +1,32 @@
-import React from 'react';
-import Wrapper from '../../common/Wrapper';
-import Backdrop from '../../components/UI/Backdrop';
+import React from "react";
 
-const modal = props => {
-  return (
-    <Wrapper>
-      <Backdrop show={props.show} clicked={props.modalClosed} />
-      <div
-        className="Modal"
-        style={{
-          transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: props.show ? '1' : '0',
-        }}
-      >
-        {props.children}
-      </div>
-    </Wrapper>
-  );
-};
+import Wrapper from "../../common/hoc/Wrapper";
+import Backdrop from "../../components/UI/Backdrop";
 
-export default modal;
+class Modal extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
+        <div
+          className="Modal"
+          style={{
+            transform: this.props.show ? "translateY(0)" : "translateY(-100vh)",
+            opacity: this.props.show ? "1" : "0"
+          }}
+        >
+          {this.props.children}
+        </div>
+      </Wrapper>
+    );
+  }
+}
+
+export default Modal;

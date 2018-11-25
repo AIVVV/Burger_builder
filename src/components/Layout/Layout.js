@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
-import Wrapper from '../../common/Wrapper';
-import Toolbar from '../Navigation/Toolbar';
-import SideDrawer from '../SideDrawer/SideDrawer';
+import React from "react";
+
+import Wrapper from "../../common/hoc/Wrapper";
+import Toolbar from "../Navigation/Toolbar";
+import SideDrawer from "../SideDrawer/SideDrawer";
 
 class Layout extends React.Component {
-  state = {
-    showSideDrawer: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showSideDrawer: false
+    };
+  }
 
   sideDrawerCloseHandler = () => {
     this.setState({ showSideDrawer: false });

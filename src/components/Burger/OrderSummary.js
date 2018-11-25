@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from '../../common/Wrapper';
+import Wrapper from '../../common/hoc/Wrapper';
 import Button from '../UI/Button';
 
 const orderSummary = props => {
@@ -15,7 +15,7 @@ const orderSummary = props => {
     <Wrapper>
       <h3>Your order:</h3>
       <p>You included the following ingredients:</p>
-      <ul>{ingredientSummary}</ul>
+      <ul className="order-summary-list">{ingredientSummary}</ul>
       <p>
         <strong>Total Price:</strong>
         {props.price}

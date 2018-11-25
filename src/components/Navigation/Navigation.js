@@ -1,10 +1,13 @@
-import React from 'react';
-import NavigationItem from './NavigationItem';
+import React from "react";
+import NavigationItem from "./NavigationItem";
+import { StaticRoutes } from "../../common/ClientRoutes";
 
 const navigationItem = () => (
   <ul className="Navigation">
-    <NavigationItem link="/" active>Burger Builder</NavigationItem>
-    <NavigationItem link="/">Checkout</NavigationItem>
+    <NavigationItem link={StaticRoutes.HOME} exact>
+      Burger Builder
+    </NavigationItem>
+    <NavigationItem link={StaticRoutes.ORDERS}>Orders</NavigationItem>
   </ul>
 );
 

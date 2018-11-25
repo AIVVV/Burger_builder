@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import Layout from './components/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import AppRouter from "./components/AppRouter/AppRouter";
+import Layout from "./components/Layout/Layout";
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Layout>
-          <BurgerBuilder />
+          <AppRouter />
         </Layout>
-      </div>
+      </BrowserRouter>
     );
   }
 }

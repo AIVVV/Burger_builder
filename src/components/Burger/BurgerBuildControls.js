@@ -1,5 +1,5 @@
 import React from 'react';
-import BuildControl from '../../common/BuildControl';
+import BuildControl from '../../common/components/BuildControl';
 
 // object with all ingredients that burger have
 const controls = [
