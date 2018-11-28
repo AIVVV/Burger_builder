@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../common/Logo';
 import Navigation from '../Navigation/Navigation';
-import Backdrop from '../UI/Backdrop';
+import Backdrop from '../UI/Backdrops/Backdrop';
 import Wrapper from '../../common/hoc/Wrapper';
 
 const sideDrawer = props => {

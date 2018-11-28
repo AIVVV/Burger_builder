@@ -1,7 +1,7 @@
 import React from "react";
 
-import Wrapper from "../../common/hoc/Wrapper";
-import Backdrop from "../../components/UI/Backdrop";
+import Wrapper from "../../../common/hoc/Wrapper";
+import Backdrop from "../Backdrops/Backdrop";
 
 class Modal extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from '../../common/hoc/Wrapper';
-import Button from '../UI/Button';
+import Button from '../UI/Buttons/Button';
 
 const orderSummary = props => {
   const ingredientSummary = Object.keys(props.ingredients).map(ingKey => {

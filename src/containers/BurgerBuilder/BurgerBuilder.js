@@ -3,9 +3,9 @@ import React from "react";
 import Burger from "../../components/Burger/Burger";
 import Wrapper from "../../common/hoc/Wrapper";
 import BuildControls from "../../components/Burger/BurgerBuildControls";
-import Modal from "../../components/UI/Modal";
+import Modal from "../../components/UI/Modals/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary";
-import Spinner from "../../components/UI/Spinner";
+import Spinner from "../../components/UI/Spinners/Spinner";
 import withErrorHandler from "../../common/hoc/withErrorHandler";
 import Axios from "../../axios-orders";
 import { RoutePaths } from "../../common/ClientRoutes";
@@ -125,7 +125,6 @@ class BurgerBuilder extends React.Component {
 
     const crashMessage = (
       <p className="crash-message">
-        {" "}
         Something went wrong. Ingredints can't be loaded.
       </p>
     );
