@@ -1,6 +1,6 @@
 import React from "react";
 import Order from "../../components/Order/Order";
-import Axios from "../../axios-orders";
+import Axios from "../../common/api/axios-orders";
 import withErrorHandler from "../../common/hoc/withErrorHandler";
 
 class Orders extends React.Component {

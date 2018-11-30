@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary";
-import { ContactData } from "../../components-exports";
+import { ContactData } from "../../exports/components-exports";
 import { StaticRoutes } from "../../common/ClientRoutes";
 import Wrapper from "../../common/components/Wrapper";
 

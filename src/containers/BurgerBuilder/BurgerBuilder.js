@@ -7,7 +7,7 @@ import Modal from "../../components/UI/Modals/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary";
 import Spinner from "../../components/UI/Spinners/Spinner";
 import withErrorHandler from "../../common/hoc/withErrorHandler";
-import Axios from "../../axios-orders";
+import Axios from "../../common/api/axios-orders";
 import { RoutePaths } from "../../common/ClientRoutes";
 
 const INGREDINTS_PRICES = {
