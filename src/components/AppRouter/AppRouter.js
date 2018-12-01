@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { BurgerBuilder, Checkout, Orders } from "../../components-exports";
+import { BurgerBuilder, Checkout, Orders } from "../../exports/components-exports";
 import { StaticRoutes } from "../../common/ClientRoutes";
 
 class AppRouter extends React.Component {

@@ -2,11 +2,19 @@ import React from "react";
 
 const input = props => {
   let inputElement = null;
+  let validationError = null;
+  const inputClasses =["InputElement"];
+
+  if(props.invalid && props.shouldValidate && props.touched) {
+    inputClasses.push("Invalid");
+    validationError = <p className="ValidationError"> Please enter a valid {props.valueName} </p>
+  }
+
   switch (props.elementType) {
     case "input":
       inputElement = (
         <input
-          className="InputElement"
+          className={inputClasses.join(' ')}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -16,7 +24,7 @@ const input = props => {
     case "textarea":
       inputElement = (
         <textarea
-          className="InputElement"
+          className={inputClasses.join(' ')}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -26,7 +34,7 @@ const input = props => {
     case "select":
       inputElement = (
         <select
-          className="InputElement"
+          className={inputClasses.join(' ')}
           value={props.value}
           onChange={props.changed}
         >
@@ -41,7 +49,7 @@ const input = props => {
     default:
       inputElement = (
         <input
-          className="InputElement"
+          className={inputClasses.join(' ')}
           {...props.elementConfig}
           value={props.value}
         />
@@ -52,6 +60,7 @@ const input = props => {
     <div className="Input">
       <label className="Label">{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
   );
 };

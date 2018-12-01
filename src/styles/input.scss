@@ -10,6 +10,7 @@
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+  padding: 5px;
 }
 
 .InputElement {
@@ -26,4 +27,14 @@
 .InputElement:focus {
   outline: none;
   background-color: #ccc;
+}
+
+.Invalid {
+  border: 1px solid #FD0000;
+  background-color: #FDA49A;
+}
+
+.ValidationError {
+  margin: 5px 0;
+  color: #FD0000;
 }
