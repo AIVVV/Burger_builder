@@ -6,7 +6,7 @@ const logo = props => (
     className="Logo"
     style={{ height: props.height, marginBottom: props.marginBottom }}
   >
-    <img src={logoSrc} />
+    <img src={logoSrc} alt={props.alt}/>
   </div>
 );
 
