@@ -10,8 +10,6 @@ class ContactData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: this.props.ingredients,
-      price: this.props.totalPrice,
       orderForm: OrderFormConfig,
       formIsValid: false,
       loading: false,
@@ -20,6 +18,7 @@ class ContactData extends React.Component {
 
   orderHandler = e => {
     e.preventDefault();
+
     const formData = {};
 
     for (let formIndent in this.state.orderForm) {
@@ -27,11 +26,13 @@ class ContactData extends React.Component {
     }
 
     this.setState({ ...this.state, loading: true });
+
     const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.price,
+      ingredients: this.props.ingredients,
+      price: this.props.price,
       orderData: formData,
     };
+
     Axios.post('orders.json', order)
       .then(() => {
         this.setState({ ...this.state, loading: false });
@@ -62,6 +63,7 @@ class ContactData extends React.Component {
     const updatedOrderForm = {
       ...this.state.orderForm,
     };
+
     const updatedOrderFormElement = {
       ...updatedOrderForm[inputIndent],
     };
