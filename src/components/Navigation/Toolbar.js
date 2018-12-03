@@ -6,7 +6,7 @@ import DrawerToggle from '../SideDrawer/DrawerToggle';
 const toolbar = props => (
   <header className="Toolbar">
     <DrawerToggle  clicked={props.drawerToggleClicked}/>
-    <Logo height="80%" />
+    <Logo height="80%" alt="Toolbar logo image"/>
     <nav className="DesktopOnly">
       <Navigation />
     </nav>

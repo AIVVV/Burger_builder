@@ -13,7 +13,7 @@ const sideDrawer = props => {
     <Wrapper>
       <Backdrop show={props.open} clicked={props.closed} />
       <div className={attachedClasses.join(' ')}>
-        <Logo height="11%" marginBottom="30px" />
+        <Logo height="11%" marginBottom="30px" alt="Side drawer logo image" />
         <nav>
           <Navigation />
         </nav>
