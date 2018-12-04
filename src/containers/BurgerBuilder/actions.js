@@ -1,7 +1,6 @@
-import * as actionTypes from './action-types';
+import * as actionTypes from './actionТypes';
 
-// Action creator for add ingridient
-export const add_ingridient = ingridientType => {
+export const addIngridient = ingridientType => {
   return {
     type: actionTypes.ADD_INGRIDIENT,
     payload: {
@@ -10,8 +9,7 @@ export const add_ingridient = ingridientType => {
   }
 };
 
-// Action creator for remove ingridient
-export const remove_ingridient = ingridientType => {
+export const removeIngridient = ingridientType => {
   return {
     type: actionTypes.REMOVE_INGRIDIENT,
     payload: {

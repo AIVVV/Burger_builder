@@ -39,7 +39,6 @@ class BurgerBuilder extends React.Component {
       .reduce((sum, el) => {
         return sum + el;
       }, 0);
-
     return sum > 0;
   };
 

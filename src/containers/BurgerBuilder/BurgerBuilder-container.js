@@ -5,15 +5,15 @@ import * as Actions from './actions';
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice
+    ingredients: state.burger.ingredients,
+    price: state.burger.totalPrice
   };
 };
 
 const mapDispatchTopProps = dispatch => {
   return {
-    onIngredientAdded: ing => dispatch(Actions.add_ingridient(ing)),
-    onIngedientRemoved: ing => dispatch(Actions.remove_ingridient(ing)),
+    onIngredientAdded: ing => dispatch(Actions.addIngridient(ing)),
+    onIngedientRemoved: ing => dispatch(Actions.removeIngridient(ing)),
   };
 };
 
