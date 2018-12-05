@@ -43,7 +43,12 @@ export const burgerReducer = (state = initialState, action) => {
     case actionTypes.SET_INGREDIENTS:
       return {
         ...state,
-        ingredients: action.payload.ingredients,
+        ingredients: {
+          bacon: action.payload.ingredients.bacon,
+          cheese: action.payload.ingredients.cheese,
+          meat: action.payload.ingredients.meat,
+          salad: action.payload.ingredients.salad
+        },
         error: false,
       };
     case actionTypes.FETCH_INGREDIENTS_FAILD:
