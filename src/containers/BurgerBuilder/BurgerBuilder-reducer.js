@@ -1,14 +1,9 @@
-import * as actionsTypes from "./actionТypes";
+import * as actionTypes from './actionТypes';
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    meat: 0,
-    cheese: 0,
-  },
-
+  ingredients: null,
   totalPrice: 4,
+  error: false,
 };
 
 const INGREDIENTS_PRICES = {
@@ -20,29 +15,41 @@ const INGREDIENTS_PRICES = {
 
 export const burgerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionsTypes.ADD_INGRIDIENT: {
+    case actionTypes.ADD_INGREDIENT: {
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
-          [action.payload.ingridient]:
-          state.ingredients[action.payload.ingridient] + 1,
+          [action.payload.ingredient]:
+            state.ingredients[action.payload.ingredient] + 1,
         },
         totalPrice:
-          Math.round((state.totalPrice + INGREDIENTS_PRICES[action.payload.ingridient]) * 10) / 10
-
+          Math.round(
+            (state.totalPrice + INGREDIENTS_PRICES[action.payload.ingredient]) * 10) / 10,
       };
     }
-    case actionsTypes.REMOVE_INGRIDIENT:
+    case actionTypes.REMOVE_INGREDIENT:
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
-          [action.payload.ingridient]:
-          state.ingredients[action.payload.ingridient] - 1,
+          [action.payload.ingredient]:
+            state.ingredients[action.payload.ingredient] - 1,
         },
         totalPrice:
-          Math.round((state.totalPrice - INGREDIENTS_PRICES[action.payload.ingridient]) * 10) / 10
+          Math.round(
+            (state.totalPrice - INGREDIENTS_PRICES[action.payload.ingredient]) * 10) / 10,
+      };
+    case actionTypes.SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: action.payload.ingredients,
+        error: false,
+      };
+    case actionTypes.FETCH_INGREDIENTS_FAILD:
+      return {
+        ...state,
+        error: true,
       };
     default:
       return state;

@@ -15,13 +15,12 @@ class BurgerBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      purchasing: false,
-      loading: false,
-      error: false
+      purchasing: false
     };
   }
 
   componentDidMount() {
+    this.props.onInitIngredients();
     // Axios.get("/ingredients.json")
     //   .then(response => {
     //     this.setState({ ...this.state, ingredients: response.data });
@@ -73,7 +72,7 @@ class BurgerBuilder extends React.Component {
 
     let orderSummary = null;
 
-    let burger = this.state.error ? crashMessage : <Spinner />;
+    let burger = this.props.error ? crashMessage : <Spinner />;
 
     if (this.props.ingredients) {
       burger = (
@@ -97,10 +96,6 @@ class BurgerBuilder extends React.Component {
           purchaseContinue={this.purchaseContinueHandler}
         />
       );
-    }
-
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
     }
 
     return (

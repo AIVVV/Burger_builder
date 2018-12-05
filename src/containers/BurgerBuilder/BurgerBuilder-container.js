@@ -6,7 +6,8 @@ import * as Actions from './actions';
 const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
-    price: state.burger.totalPrice
+    price: state.burger.totalPrice,
+    error: state.burger.error
   };
 };
 
@@ -14,10 +15,8 @@ const mapDispatchTopProps = dispatch => {
   return {
     onIngredientAdded: ing => dispatch(Actions.addIngridient(ing)),
     onIngedientRemoved: ing => dispatch(Actions.removeIngridient(ing)),
+    onInitIngredients: () => dispatch(Actions.initIngredients())
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchTopProps,
-)(BurgerBuilder);
+export default connect(mapStateToProps, mapDispatchTopProps)(BurgerBuilder);
