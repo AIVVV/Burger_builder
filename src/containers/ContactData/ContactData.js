@@ -5,14 +5,14 @@ import Axios from '../../common/api/axios-orders';
 import Input from '../../components/UI/Forms/Input/Input';
 import { OrderFormConfig } from '../../common/configs/OrderFormConfig';
 import { RoutePaths } from '../../common/ClientRoutes';
+import withErrorHandler from '../../common/hoc/withErrorHandler';
 
 class ContactData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       orderForm: OrderFormConfig,
-      formIsValid: false,
-      loading: false,
+      formIsValid: false
     };
   }
 
@@ -30,17 +30,10 @@ class ContactData extends React.Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      orderData: formData,
+      orderData: formData
     };
-
-    Axios.post('orders.json', order)
-      .then(() => {
-        this.setState({ ...this.state, loading: false });
-        this.props.history.push(RoutePaths.TO_HOME());
-      })
-      .catch(() => {
-        this.setState({ ...this.state, loading: false });
-      });
+    this.props.onOrderBurger(order);
+    // this.props.history.push(RoutePaths.TO_HOME());
   };
 
   checkValidity = (value, rules) => {
@@ -118,7 +111,7 @@ class ContactData extends React.Component {
       </form>
     );
 
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
 
@@ -131,4 +124,4 @@ class ContactData extends React.Component {
   }
 }
 
-export default ContactData;
+export default withErrorHandler(ContactData, Axios);

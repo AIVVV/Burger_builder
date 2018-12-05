@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary";
 import { ContactData } from "../../exports/components-exports";
@@ -7,7 +7,6 @@ import { StaticRoutes } from "../../common/ClientRoutes";
 import Wrapper from "../../common/components/Wrapper";
 
 class Checkout extends React.Component {
-
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   };
@@ -17,19 +16,30 @@ class Checkout extends React.Component {
   };
 
   render() {
-    return (
-      <Wrapper>
-        <CheckoutSummary
-          checkoutCancelled={this.checkoutCancelledHandler}
-          checkoutContinued={this.checkoutContinuedHandler}
-          ingredients={this.props.ingredients}
-        />
-        <Route
-          path={StaticRoutes.CHECKOUT_CONTACT_DATA}
-          component={ContactData}
-        />
-      </Wrapper>
-    );
+    let summary = <Redirect to={StaticRoutes.HOME} />;
+
+    if (this.props.ingredients) {
+      const purchasedRedirect = this.props.purchased ? (
+        <Redirect to={StaticRoutes.HOME} />
+      ) : null;
+
+      summary = (
+        <Wrapper>
+          {purchasedRedirect}
+          <CheckoutSummary
+            checkoutCancelled={this.checkoutCancelledHandler}
+            checkoutContinued={this.checkoutContinuedHandler}
+            ingredients={this.props.ingredients}
+          />
+          <Route
+            path={StaticRoutes.CHECKOUT_CONTACT_DATA}
+            component={ContactData}
+          />
+        </Wrapper>
+      );
+    }
+
+    return summary;
   }
 }
 

@@ -4,7 +4,8 @@ import Checkout from './Chekout';
 const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
-    price: state.burger.totalPrice
+    price: state.burger.totalPrice,
+    purchased: state.orders.purchased
   }
 };
 

@@ -21,13 +21,6 @@ class BurgerBuilder extends React.Component {
 
   componentDidMount() {
     this.props.onInitIngredients();
-    // Axios.get("/ingredients.json")
-    //   .then(response => {
-    //     this.setState({ ...this.state, ingredients: response.data });
-    //   })
-    //   .catch(() => {
-    //     this.setState({ ...this.state, error: true });
-    //   });
   }
 
   updatePurchaseState = ingredients => {
@@ -50,6 +43,7 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinueHandler = () => {
+    this.props.onPurchaseInit();
     this.props.history.push(RoutePaths.TO_CHECKOUT());
   };
 
