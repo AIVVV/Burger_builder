@@ -2,6 +2,21 @@ import actionTypes from "./actionTypes";
 import Axios from "../../common/api/axios-orders";
 
 const helpers = Object.freeze({
+  createOrders: ordersObject => {
+    let ordersArray = [];
+    for (let key in ordersObject) {
+      ordersArray.push({
+        ...ordersObject[key],
+        id: key
+      });
+    }
+    return ordersArray;
+  },
+  purchaseBurgerStart: () => {
+    return {
+      type: actionTypes.PURCHASE_BURGER_START
+    };
+  },
   purchaseBurgerSuccess: (id, orderData) => {
     return {
       type: actionTypes.PURCHASE_BURGER_SUCCESS,
@@ -19,9 +34,25 @@ const helpers = Object.freeze({
       }
     };
   },
-  purchaseBurgerStart: () => {
+  fetchOrdersStart: () => {
     return {
-      type: actionTypes.PURCHASE_BURGER_START
+      type: actionTypes.FETCH_ORDERS_START
+    };
+  },
+  fetchOrdersSuccess: orders => {
+    return {
+      type: actionTypes.FETCH_ORDERS_SUCCESS,
+      payload: {
+        orders: orders
+      }
+    };
+  },
+  fetchOrdersFail: error => {
+    return {
+      type: actionTypes.FETCH_ORDERS_FAIL,
+      payload: {
+        error: error
+      }
     };
   }
 });
@@ -41,6 +72,20 @@ export const purchaseBurger = orderData => {
       })
       .catch(error => {
         dispatch(helpers.purchaseBurgerFail(error.message));
+      });
+  };
+};
+
+export const fetchOrders = () => {
+  return dispatch => {
+    dispatch(helpers.fetchOrdersStart());
+    Axios.get("/orders.json")
+      .then(response => {
+        let fetchedOrders = helpers.createOrders(response.data);
+        dispatch(helpers.fetchOrdersSuccess(fetchedOrders));
+      })
+      .catch(error => {
+        dispatch(helpers.fetchOrdersFail(error));
       });
   };
 };
