@@ -1,8 +1,8 @@
-import Axios from 'axios';
-import { config } from './api-config';
+import Axios from "axios";
+import { config, settings } from "./api-config";
 
 const instance = Axios.create({
-    baseURL:`${config.protocol}${config.baseURL}`
+  baseURL: config.baseURL(settings.protocol, settings.serverTwo)
 });
 
 export default instance;
