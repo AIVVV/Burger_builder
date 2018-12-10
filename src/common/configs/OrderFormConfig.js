@@ -1,37 +1,37 @@
 export const OrderFormConfig = {
   name: {
-    elementType: 'input',
+    elementType: "input",
     elementConfig: {
-      type: 'text',
-      placeholder: 'Your Name',
+      type: "text",
+      placeholder: "Your Name"
     },
-    value: '',
+    value: "",
     validation: {
-      required: true,
+      required: true
     },
     valid: false,
     touched: false
   },
   street: {
-    elementType: 'input',
+    elementType: "input",
     elementConfig: {
-      type: 'text',
-      placeholder: 'Street',
+      type: "text",
+      placeholder: "Street"
     },
-    value: '',
+    value: "",
     validation: {
-      required: true,
+      required: true
     },
     valid: false,
     touched: false
   },
   zipCode: {
-    elementType: 'input',
+    elementType: "input",
     elementConfig: {
-      type: 'text',
-      placeholder: 'ZIP Code',
+      type: "text",
+      placeholder: "ZIP Code"
     },
-    value: '',
+    value: "",
     validation: {
       required: true,
       minLength: 5,
@@ -41,41 +41,41 @@ export const OrderFormConfig = {
     touched: false
   },
   country: {
-    elementType: 'input',
+    elementType: "input",
     elementConfig: {
-      type: 'text',
-      placeholder: 'Country',
+      type: "text",
+      placeholder: "Country"
     },
-    value: '',
+    value: "",
     validation: {
-      required: true,
+      required: true
     },
     valid: false,
     touched: false
   },
   email: {
-    elementType: 'input',
+    elementType: "input",
     elementConfig: {
-      type: 'email',
-      placeholder: 'Your E-Mail',
+      type: "email",
+      placeholder: "Your E-Mail"
     },
-    value: '',
+    value: "",
     validation: {
-      required: true,
+      required: true
     },
     valid: false,
     touched: false
   },
   deliveryMethod: {
-    elementType: 'select',
+    elementType: "select",
     elementConfig: {
       options: [
-        { value: 'fastest', displayValue: 'Fastest' },
-        { value: 'cheapest', displayValue: 'Cheapest' },
-      ],
+        { value: "fastest", displayValue: "Fastest" },
+        { value: "cheapest", displayValue: "Cheapest" }
+      ]
     },
-    value: 'fastest',
+    value: "fastest",
     validation: {},
-    valid: true,
-  },
+    valid: true
+  }
 };
