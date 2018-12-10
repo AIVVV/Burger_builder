@@ -2,7 +2,12 @@ import SingIn from './SingIn';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
+  }
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -10,4 +15,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(SingIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SingIn);

@@ -2,7 +2,12 @@ import SingUp from './SingUp';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
+  }
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -10,4 +15,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(SingUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SingUp);

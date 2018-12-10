@@ -3,6 +3,7 @@ import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
 import Input from "../../../components/UI/Forms/Input";
 import Button from "../../../components/UI/Buttons/Button";
+import Spinner from "../../../components/UI/Spinners/Spinner";
 
 class SingUp extends React.Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class SingUp extends React.Component {
       };
     });
 
-    let login = singUpFormArray.map(formElement => {
+    let singUp = singUpFormArray.map(formElement => {
       return (
         <Input
           key={formElement.id}
@@ -81,11 +82,25 @@ class SingUp extends React.Component {
         />
       );
     });
+
+    if(this.props.loading) {
+      singUp = <Spinner/>
+    }
+
+    let errorMessage = null;
+
+    if(this.props.error) {
+      errorMessage = (
+        <p className="ValidationError">{this.props.error.message}</p>
+      );
+    }
+
     return (
       <Wrapper class="Singup">
         <h4> Sing Up </h4>
+        {errorMessage}
         <form onSubmit={this.submitHandler}>
-          {login}
+          {singUp}
           <Button btnType="Success">Submit</Button>
         </form>
       </Wrapper>
