@@ -25,7 +25,9 @@ export const burgerReducer = (state = initialState, action) => {
         },
         totalPrice:
           Math.round(
-            (state.totalPrice + INGREDIENTS_PRICES[action.payload.ingredient]) * 10) / 10,
+            (state.totalPrice + INGREDIENTS_PRICES[action.payload.ingredient]) *
+              10,
+          ) / 10,
       };
     }
     case actionTypes.REMOVE_INGREDIENT:
@@ -38,7 +40,9 @@ export const burgerReducer = (state = initialState, action) => {
         },
         totalPrice:
           Math.round(
-            (state.totalPrice - INGREDIENTS_PRICES[action.payload.ingredient]) * 10) / 10,
+            (state.totalPrice - INGREDIENTS_PRICES[action.payload.ingredient]) *
+              10,
+          ) / 10,
       };
     case actionTypes.SET_INGREDIENTS:
       return {
@@ -47,9 +51,10 @@ export const burgerReducer = (state = initialState, action) => {
           bacon: action.payload.ingredients.bacon,
           cheese: action.payload.ingredients.cheese,
           meat: action.payload.ingredients.meat,
-          salad: action.payload.ingredients.salad
+          salad: action.payload.ingredients.salad,
         },
         error: false,
+        totalPrice: 4,
       };
     case actionTypes.FETCH_INGREDIENTS_FAILD:
       return {

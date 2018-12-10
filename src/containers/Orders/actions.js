@@ -32,7 +32,7 @@ export const purchaseInit = () => {
   };
 };
 
-export const purchaseBurger = orderData => {
+export const purchaseBurger = (orderData) => {
   return dispatch => {
     dispatch(helpers.purchaseBurgerStart());
     Axios.post("orders.json", orderData)

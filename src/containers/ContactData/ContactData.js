@@ -4,7 +4,6 @@ import Spinner from '../../components/UI/Spinners/Spinner';
 import Axios from '../../common/api/axios-orders';
 import Input from '../../components/UI/Forms/Input/Input';
 import { OrderFormConfig } from '../../common/configs/OrderFormConfig';
-import { RoutePaths } from '../../common/ClientRoutes';
 import withErrorHandler from '../../common/hoc/withErrorHandler';
 
 class ContactData extends React.Component {
@@ -12,7 +11,7 @@ class ContactData extends React.Component {
     super(props);
     this.state = {
       orderForm: OrderFormConfig,
-      formIsValid: false
+      formIsValid: false,
     };
   }
 
@@ -30,10 +29,9 @@ class ContactData extends React.Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      orderData: formData
+      orderData: formData,
     };
     this.props.onOrderBurger(order);
-    // this.props.history.push(RoutePaths.TO_HOME());
   };
 
   checkValidity = (value, rules) => {
@@ -42,13 +40,12 @@ class ContactData extends React.Component {
     if (rules.required) {
       isValid = value.trim() !== '' && isValid;
     }
-    if(rules.minLength) {
+    if (rules.minLength) {
       isValid = value.length >= rules.minLength && isValid;
     }
-    if(rules.maxLength) {
+    if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
-
     return isValid;
   };
 
@@ -74,11 +71,15 @@ class ContactData extends React.Component {
 
     let formIsValid = true;
 
-    for(let formIndentifier in updatedOrderForm) {
+    for (let formIndentifier in updatedOrderForm) {
       formIsValid = updatedOrderForm[formIndentifier].valid && formIsValid;
     }
 
-    this.setState({ ...this.state, orderForm: updatedOrderForm, formIsValid: formIsValid});
+    this.setState({
+      ...this.state,
+      orderForm: updatedOrderForm,
+      formIsValid: formIsValid,
+    });
   };
 
   render() {
@@ -107,7 +108,9 @@ class ContactData extends React.Component {
           />
         ))}
 
-        <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
+          ORDER
+        </Button>
       </form>
     );
 
