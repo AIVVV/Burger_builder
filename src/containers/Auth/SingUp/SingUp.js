@@ -47,20 +47,26 @@ class SingUp extends React.Component {
       [singUpElement]: {
         ...this.state.singUpForm[singUpElement],
         value: event.target.value,
-        valid: this.checkValidity(event.target.value, this.state.singUpForm[singUpElement].validation),
+        valid: this.checkValidity(
+          event.target.value,
+          this.state.singUpForm[singUpElement].validation
+        ),
         touched: true
       }
     };
-    this.setState({singUpForm: updatedSingUpForm});
+    this.setState({ singUpForm: updatedSingUpForm });
   };
 
-  submitHandler = (event) => {
+  submitHandler = event => {
     event.preventDefault();
-    this.props.onSingUp(this.state.singUpForm.email.value, this.state.singUpForm.password.value)
+    this.props.onSingUp(
+      this.state.singUpForm.email.value,
+      this.state.singUpForm.password.value
+    );
   };
 
   render() {
-    let singUpFormArray = Object.keys(this.state.singUpForm).map((key) => {
+    let singUpFormArray = Object.keys(this.state.singUpForm).map(key => {
       return {
         id: key,
         config: this.state.singUpForm[key]
@@ -83,13 +89,13 @@ class SingUp extends React.Component {
       );
     });
 
-    if(this.props.loading) {
-      singUp = <Spinner/>
+    if (this.props.loading) {
+      singUp = <Spinner />;
     }
 
     let errorMessage = null;
 
-    if(this.props.error) {
+    if (this.props.error) {
       errorMessage = (
         <p className="ValidationError">{this.props.error.message}</p>
       );

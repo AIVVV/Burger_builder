@@ -1,6 +1,6 @@
+import { connect } from 'react-redux';
 import SingUp from './SingUp';
 import * as actions from '../actions';
-import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   return {

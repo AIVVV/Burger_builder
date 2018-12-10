@@ -95,7 +95,7 @@ class SingIn extends React.Component {
 
     let errorMessage = null;
 
-    if(this.props.error) {
+    if (this.props.error) {
       errorMessage = (
         <p className="ValidationError">{this.props.error.message}</p>
       );

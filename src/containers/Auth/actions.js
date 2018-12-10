@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { settings, config } from "../../common/api/api-config";
 
-const helpers = Object.freeze({
+const helpers = {
   singUpStart: () => {
     return {
       type: actionTypes.SINGUP_START
@@ -56,7 +56,7 @@ const helpers = Object.freeze({
       type: actionTypes.SINGOUT
     };
   }
-});
+};
 
 export const singUp = (email, password) => {
   return dispatch => {

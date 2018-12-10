@@ -1,5 +1,5 @@
-import SingIn from './SingIn';
 import { connect } from 'react-redux';
+import SingIn from './SingIn';
 import * as actions from '../actions';
 
 const mapStateToProps = state => {
