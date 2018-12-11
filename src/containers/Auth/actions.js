@@ -1,11 +1,11 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
-import { settings, config } from "../../common/api/api-config";
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
+import { settings, config } from '../../common/api/api-config';
 
-const helpers = {
+export const helpers = {
   singUpStart: () => {
     return {
-      type: actionTypes.SINGUP_START
+      type: actionTypes.SINGUP_START,
     };
   },
   singUpSuccess: (token, userId) => {
@@ -14,22 +14,22 @@ const helpers = {
       payload: {
         token: token,
         userId: userId,
-        registered: false
-      }
+        registered: false,
+      },
     };
   },
   singUpFail: error => {
     return {
       type: actionTypes.SINGUP_FAIL,
       payload: {
-        error: error
-      }
+        error: error,
+      },
     };
   },
 
   singInStart: () => {
     return {
-      type: actionTypes.SINGIN_START
+      type: actionTypes.SINGIN_START,
     };
   },
   singInSuccess: (token, userId, registered) => {
@@ -38,24 +38,24 @@ const helpers = {
       payload: {
         token: token,
         userId: userId,
-        registered: registered
-      }
+        registered: registered,
+      },
     };
   },
   singInFail: error => {
     return {
       type: actionTypes.SINGIN_FAIL,
       payload: {
-        error: error
-      }
+        error: error,
+      },
     };
   },
 
   singOut: () => {
     return {
-      type: actionTypes.SINGOUT
+      type: actionTypes.SINGOUT,
     };
-  }
+  },
 };
 
 export const singUp = (email, password) => {
@@ -63,19 +63,19 @@ export const singUp = (email, password) => {
     const credentials = {
       email: email,
       password: password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
 
     dispatch(helpers.singUpStart());
     axios
       .post(
         config.authURL(settings.protocol, settings.authSingUp, settings.apiKey),
-        credentials
+        credentials,
       )
       .then(response => {
         console.log(response.data);
         dispatch(
-          helpers.singUpSuccess(response.data.idToken, response.data.localId)
+          helpers.singUpSuccess(response.data.idToken, response.data.localId),
         );
       })
       .catch(error => {
@@ -90,14 +90,14 @@ export const singIn = (email, password) => {
     const credentials = {
       email: email,
       password: password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
 
     dispatch(helpers.singInStart());
     axios
       .post(
         config.authURL(settings.protocol, settings.authSingIn, settings.apiKey),
-        credentials
+        credentials,
       )
       .then(response => {
         console.log(response);
@@ -105,8 +105,8 @@ export const singIn = (email, password) => {
           helpers.singInSuccess(
             response.data.idToken,
             response.data.localId,
-            response.data.registered
-          )
+            response.data.registered,
+          ),
         );
         dispatch(singOutTimeout(response.data.expiresIn));
       })

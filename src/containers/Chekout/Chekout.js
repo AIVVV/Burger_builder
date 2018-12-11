@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary';
 import { ContactData } from '../../exports/components-exports';
-import { StaticRoutes } from '../../common/ClientRoutes';
+import {RoutePaths, StaticRoutes } from '../../common/ClientRoutes';
 import Wrapper from '../../common/components/Wrapper';
 
 class Checkout extends React.Component {
@@ -32,7 +32,7 @@ class Checkout extends React.Component {
             ingredients={this.props.ingredients}
           />
           <Route
-            path={StaticRoutes.CHECKOUT_CONTACT_DATA}
+            path={RoutePaths.TO_CHECKOUT_CONTACT_DATA()}
             component={ContactData}
           />
         </Wrapper>

@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import {
   SingUp,
   SingIn,
+  SingOut,
   BurgerBuilder,
   Checkout,
   Orders
@@ -16,6 +17,7 @@ class AppRouter extends React.Component {
       <Switch>
         <Route path={StaticRoutes.SING_UP} component={SingUp} />
         <Route path={StaticRoutes.SING_IN} component={SingIn} />
+        <Route path={StaticRoutes.SING_OUT} component={SingOut} />
         <Route path={StaticRoutes.CHECKOUT} component={Checkout} />
         <Route path={StaticRoutes.ORDERS} component={Orders} />
         <Route exact path={StaticRoutes.HOME} component={BurgerBuilder} />

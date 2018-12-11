@@ -21,8 +21,8 @@ const navigation = props => {
     <NavigationItem link={RoutePaths.TO_SING_IN()}>Sing In</NavigationItem>
   );
 
-  let loggedout = props.isAuthenticated ? (
-    <NavigationItem link={RoutePaths.TO_LOGOUT()}>Logout</NavigationItem>
+  let singout = props.isAuthenticated ? (
+    <NavigationItem link={RoutePaths.TO_SING_OUT()}>Sing out</NavigationItem>
   ) : null;
 
   return (
@@ -32,7 +32,7 @@ const navigation = props => {
         {orders}
         {singup}
         {singin}
-        {loggedout}
+        {singout}
       </ul>
     </nav>
   );
