@@ -1,4 +1,7 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+
+import { RoutePaths } from "../../../common/ClientRoutes";
 import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
 import Input from "../../../components/UI/Forms/Input";
@@ -101,9 +104,20 @@ class SingIn extends React.Component {
       );
     }
 
+    let isAuthRedirect = null;
+
+    if (this.props.isAuthenticated) {
+      if (this.props.building) {
+        isAuthRedirect = <Redirect to={RoutePaths.TO_CHECKOUT()} />;
+      } else {
+        isAuthRedirect = <Redirect to={RoutePaths.TO_HOME()} />;
+      }
+    }
+
     return (
       <Wrapper class="Singin">
         <h4> Sing In </h4>
+        {isAuthRedirect}
         {errorMessage}
         <form onSubmit={this.submitHandler}>
           {singIn}

@@ -1,6 +1,6 @@
-import React from 'react';
-import NavigationItem from './NavigationItem';
-import { RoutePaths } from '../../common/ClientRoutes';
+import React from "react";
+import NavigationItem from "./NavigationItem";
+import { RoutePaths } from "../../common/ClientRoutes";
 
 const navigation = props => {
   let burgerBuilder = (
@@ -9,9 +9,9 @@ const navigation = props => {
     </NavigationItem>
   );
 
-  let orders = (
+  let orders = props.isAuthenticated ? (
     <NavigationItem link={RoutePaths.TO_ORDERS()}>Orders</NavigationItem>
-  );
+  ) : null;
 
   let singup = props.isAuthenticated ? null : (
     <NavigationItem link={RoutePaths.TO_SING_UP()}>Sing Up</NavigationItem>

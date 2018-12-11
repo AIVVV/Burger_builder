@@ -1,9 +1,12 @@
 import React from "react";
+import {Redirect} from "react-router-dom";
+
 import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
 import Input from "../../../components/UI/Forms/Input";
 import Button from "../../../components/UI/Buttons/Button";
 import Spinner from "../../../components/UI/Spinners/Spinner";
+import { RoutePaths } from "../../../common/ClientRoutes";
 
 class SingUp extends React.Component {
   constructor(props) {
@@ -101,10 +104,17 @@ class SingUp extends React.Component {
       );
     }
 
+    let isSingUpRedirect = null;
+
+    if(this.props.token !== null && this.props.token) {
+      isSingUpRedirect = <Redirect to={RoutePaths.TO_SING_IN()}/>
+    }
+
     return (
       <Wrapper class="Singup">
         <h4> Sing Up </h4>
         {errorMessage}
+        {isSingUpRedirect}
         <form onSubmit={this.submitHandler}>
           {singUp}
           <Button btnType="Success">Submit</Button>

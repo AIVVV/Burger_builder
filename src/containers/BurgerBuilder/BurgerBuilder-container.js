@@ -8,7 +8,8 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
     price: state.burger.totalPrice,
-    error: state.burger.error
+    error: state.burger.error,
+    isAuthenticated: state.auth.registered
   };
 };
 

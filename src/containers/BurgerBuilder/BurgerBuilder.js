@@ -1,21 +1,21 @@
-import React from 'react';
-import Axios from '../../common/api/axios-orders';
+import React from "react";
+import Axios from "../../common/api/axios-orders";
 
-import Burger from '../../components/Burger/Burger';
-import Wrapper from '../../common/hoc/Wrapper';
-import BuildControls from '../../components/Burger/BurgerBuildControls';
-import Modal from '../../components/UI/Modals/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary';
-import Spinner from '../../components/UI/Spinners/Spinner';
-import withErrorHandler from '../../common/hoc/withErrorHandler';
+import Burger from "../../components/Burger/Burger";
+import Wrapper from "../../common/hoc/Wrapper";
+import BuildControls from "../../components/Burger/BurgerBuildControls";
+import Modal from "../../components/UI/Modals/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary";
+import Spinner from "../../components/UI/Spinners/Spinner";
+import withErrorHandler from "../../common/hoc/withErrorHandler";
 
-import { RoutePaths } from '../../common/ClientRoutes';
+import { RoutePaths } from "../../common/ClientRoutes";
 
 class BurgerBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      purchasing: false,
+      purchasing: false
     };
   }
 
@@ -35,7 +35,11 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.isAuthenticated) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.history.push(RoutePaths.TO_SING_IN());
+    }
   };
 
   purchaseCloseHandler = () => {
@@ -49,7 +53,7 @@ class BurgerBuilder extends React.Component {
 
   render() {
     let disableInfo = {
-      ...this.props.ingredients,
+      ...this.props.ingredients
     };
 
     for (let key in disableInfo) {
@@ -76,6 +80,7 @@ class BurgerBuilder extends React.Component {
             addIngridient={this.props.onIngredientAdded}
             removeIngredient={this.props.onIngedientRemoved}
             displayed={disableInfo}
+            isAuth={this.props.isAuthenticated}
             price={this.props.price}
             purchasable={this.updatePurchaseState(this.props.ingredients)}
             ordered={this.purchaseHandler}
