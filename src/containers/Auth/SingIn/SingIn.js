@@ -3,6 +3,7 @@ import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
 import Input from "../../../components/UI/Forms/Input";
 import Button from "../../../components/UI/Buttons/Button";
+import Spinner from "../../../components/UI/Spinners/Spinner";
 
 class SingIn extends React.Component {
   constructor(props) {
@@ -58,7 +59,10 @@ class SingIn extends React.Component {
 
   submitHandler = event => {
     event.preventDefault();
-    this.props.onSingIn(this.state.singInForm.email.value, this.state.singInForm.password.value)
+    this.props.onSingIn(
+      this.state.singInForm.email.value,
+      this.state.singInForm.password.value
+    );
   };
 
   render() {
@@ -69,7 +73,7 @@ class SingIn extends React.Component {
       };
     });
 
-    let login = singInFormArray.map(formElement => {
+    let singIn = singInFormArray.map(formElement => {
       return (
         <Input
           key={formElement.id}
@@ -84,11 +88,25 @@ class SingIn extends React.Component {
         />
       );
     });
+
+    if (this.props.loading) {
+      singIn = <Spinner />;
+    }
+
+    let errorMessage = null;
+
+    if (this.props.error) {
+      errorMessage = (
+        <p className="ValidationError">{this.props.error.message}</p>
+      );
+    }
+
     return (
       <Wrapper class="Singin">
         <h4> Sing In </h4>
+        {errorMessage}
         <form onSubmit={this.submitHandler}>
-          {login}
+          {singIn}
           <Button btnType="Success">Submit</Button>
         </form>
       </Wrapper>

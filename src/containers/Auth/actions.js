@@ -1,19 +1,20 @@
 import * as actionTypes from "./actionTypes";
-import axios from 'axios';
+import axios from "axios";
+import { settings, config } from "../../common/api/api-config";
 
-import {settings, config} from '../../common/api/api-config';
-
-const helpers = Object.freeze({
+const helpers = {
   singUpStart: () => {
     return {
       type: actionTypes.SINGUP_START
     };
   },
-  singUpSuccess: data => {
+  singUpSuccess: (token, userId) => {
     return {
       type: actionTypes.SINGUP_SUCCESS,
       payload: {
-        loginData: data
+        token: token,
+        userId: userId,
+        registered: false
       }
     };
   },
@@ -31,11 +32,13 @@ const helpers = Object.freeze({
       type: actionTypes.SINGIN_START
     };
   },
-  singInSuccess: data => {
+  singInSuccess: (token, userId, registered) => {
     return {
       type: actionTypes.SINGIN_SUCCESS,
       payload: {
-        loginData: data
+        token: token,
+        userId: userId,
+        registered: registered
       }
     };
   },
@@ -46,8 +49,14 @@ const helpers = Object.freeze({
         error: error
       }
     };
+  },
+
+  singOut: () => {
+    return {
+      type: actionTypes.SINGOUT
+    };
   }
-});
+};
 
 export const singUp = (email, password) => {
   return dispatch => {
@@ -58,14 +67,20 @@ export const singUp = (email, password) => {
     };
 
     dispatch(helpers.singUpStart());
-    axios.post(config.authURL(settings.protocol,settings.authSingUp, settings.apiKey), credentials)
+    axios
+      .post(
+        config.authURL(settings.protocol, settings.authSingUp, settings.apiKey),
+        credentials
+      )
       .then(response => {
-        console.log(response);
-        dispatch(helpers.singUpSuccess(response.data));
+        console.log(response.data);
+        dispatch(
+          helpers.singUpSuccess(response.data.idToken, response.data.localId)
+        );
       })
       .catch(error => {
-        dispatch(helpers.singUpFail(error));
-        console.log(error);
+        dispatch(helpers.singUpFail(error.response.data.error));
+        console.log(error.response.data.error);
       });
   };
 };
@@ -79,14 +94,33 @@ export const singIn = (email, password) => {
     };
 
     dispatch(helpers.singInStart());
-    axios.post(config.authURL(settings.protocol,settings.authSingIn, settings.apiKey), credentials)
+    axios
+      .post(
+        config.authURL(settings.protocol, settings.authSingIn, settings.apiKey),
+        credentials
+      )
       .then(response => {
         console.log(response);
-        dispatch(helpers.singInSuccess(response.data));
+        dispatch(
+          helpers.singInSuccess(
+            response.data.idToken,
+            response.data.localId,
+            response.data.registered
+          )
+        );
+        dispatch(singOutTimeout(response.data.expiresIn));
       })
       .catch(error => {
-        dispatch(helpers.singInFail(error));
-        console.log(error);
+        dispatch(helpers.singInFail(error.response.data.error));
+        console.log(error.response.data.error);
       });
+  };
+};
+
+const singOutTimeout = expireTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(helpers.singOut());
+    }, expireTime * 1000);
   };
 };

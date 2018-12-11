@@ -1,7 +1,7 @@
 import actionTypes from "./actionTypes";
 import Axios from "../../common/api/axios-orders";
 
-const helpers = Object.freeze({
+const helpers = {
   createOrders: ordersObject => {
     let ordersArray = [];
     for (let key in ordersObject) {
@@ -55,7 +55,7 @@ const helpers = Object.freeze({
       }
     };
   }
-});
+};
 
 export const purchaseInit = () => {
   return {
