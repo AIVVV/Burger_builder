@@ -54,8 +54,9 @@ export const helpers = {
   },
 
   singOut: () => {
-    localStorage.Remove('token');
-    localStorage.Remove('expirationDate');
+    localStorage.Remove("token");
+    localStorage.Remove("expirationDate");
+    localStorage.Remove("userId");
     return {
       type: actionTypes.SINGOUT
     };
@@ -104,9 +105,12 @@ export const singIn = (email, password) => {
         credentials
       )
       .then(response => {
-        let expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-        localStorage.Save('token', response.data.idToken);
-        localStorage.Save('expirationTime', expirationDate);
+        let expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.Save("token", response.data.idToken);
+        localStorage.Save("expirationDate", expirationDate);
+        localStorage.Save("userId", response.data.localId);
         dispatch(
           helpers.singInSuccess(
             response.data.idToken,
@@ -130,3 +134,6 @@ const singOutTimeout = expireTime => {
     }, expireTime * 1000);
   };
 };
+
+//continue function
+const authChekState = () => {};
