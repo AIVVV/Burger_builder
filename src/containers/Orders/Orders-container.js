@@ -5,13 +5,14 @@ import * as actions from "./actions";
 const mapStateToProps = state => {
   return {
     orders: state.orders.orders,
-    loading: state.orders.loading
+    loading: state.orders.loading,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders())
+    onFetchOrders: (token) => dispatch(actions.fetchOrders(token))
   };
 };
 

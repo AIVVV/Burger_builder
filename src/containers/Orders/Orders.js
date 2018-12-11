@@ -6,14 +6,11 @@ import withErrorHandler from "../../common/hoc/withErrorHandler";
 class Orders extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      orders: [],
-      loading: true
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
 
   render() {

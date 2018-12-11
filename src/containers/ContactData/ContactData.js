@@ -1,11 +1,11 @@
-import React from "react";
-import Button from "../../components/UI/Buttons/Button";
-import Spinner from "../../components/UI/Spinners/Spinner";
-import Axios from "../../common/api/axios-orders";
-import Input from "../../components/UI/Forms/Input";
-import { OrderFormConfig } from "../../common/configs/OrderFormConfig";
-import { RoutePaths } from "../../common/ClientRoutes";
-import withErrorHandler from "../../common/hoc/withErrorHandler";
+import React from 'react';
+import Button from '../../components/UI/Buttons/Button';
+import Spinner from '../../components/UI/Spinners/Spinner';
+import Axios from '../../common/api/axios-orders';
+import Input from '../../components/UI/Forms/Input';
+import { OrderFormConfig } from '../../common/configs/OrderFormConfig';
+
+import withErrorHandler from '../../common/hoc/withErrorHandler';
 
 class ContactData extends React.Component {
   constructor(props) {
@@ -25,21 +25,19 @@ class ContactData extends React.Component {
       formData[formIndent] = this.state.orderForm[formIndent].value;
     }
 
-    this.setState({ ...this.state, loading: true });
-
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
       orderData: formData,
     };
-    this.props.onOrderBurger(order);
+    this.props.onOrderBurger(order, this.props.token);
   };
 
   checkValidity = (value, rules) => {
     let isValid = true;
 
     if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
+      isValid = value.trim() !== '' && isValid;
     }
 
     if (rules.minLength) {
@@ -65,18 +63,18 @@ class ContactData extends React.Component {
 
   inputChangeHandler = (event, inputIndent) => {
     const updatedOrderForm = {
-      ...this.state.orderForm
+      ...this.state.orderForm,
     };
 
     const updatedOrderFormElement = {
-      ...updatedOrderForm[inputIndent]
+      ...updatedOrderForm[inputIndent],
     };
 
     updatedOrderFormElement.value = event.target.value;
 
     updatedOrderFormElement.valid = this.checkValidity(
       updatedOrderFormElement.value,
-      updatedOrderFormElement.validation
+      updatedOrderFormElement.validation,
     );
 
     updatedOrderFormElement.touched = true;
@@ -92,20 +90,17 @@ class ContactData extends React.Component {
     this.setState({
       ...this.state,
       orderForm: updatedOrderForm,
-      formIsValid: formIsValid
+      formIsValid: formIsValid,
     });
   };
 
   render() {
-
-    let formElementsArray = Object.keys(this.state.orderForm).map(
-      (key) => {
-        return {
-          id: key,
-          config: this.state.orderForm[key]
-        };
-      }
-    );
+    let formElementsArray = Object.keys(this.state.orderForm).map(key => {
+      return {
+        id: key,
+        config: this.state.orderForm[key],
+      };
+    });
 
     let form = (
       <form onSubmit={this.orderHandler}>

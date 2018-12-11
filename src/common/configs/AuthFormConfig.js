@@ -1,30 +1,30 @@
 export const AuthFormConfig = {
   email: {
-    elementType: "input",
+    elementType: 'input',
     elementConfig: {
-      type: "email",
-      placeholder: "Address E-Mail"
+      type: 'email',
+      placeholder: 'Address E-Mail',
     },
-    value: "",
+    value: '',
     validation: {
       required: true,
-      isEmail: true
+      isEmail: true,
     },
     valid: false,
-    touched: false
+    touched: false,
   },
   password: {
-    elementType: "input",
+    elementType: 'input',
     elementConfig: {
-      type: "password",
-      placeholder: "Password"
+      type: 'password',
+      placeholder: 'Password',
     },
-    value: "",
+    value: '',
     validation: {
       required: true,
-      minLength: 6
+      minLength: 6,
     },
     valid: false,
-    touched: false
-  }
+    touched: false,
+  },
 };

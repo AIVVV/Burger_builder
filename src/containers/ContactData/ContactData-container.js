@@ -6,13 +6,14 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
     price: state.burger.totalPrice,
-    loading: state.orders.loading
+    loading: state.orders.loading,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData))
+    onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
   };
 };
 

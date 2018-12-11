@@ -15,7 +15,7 @@ const sideDrawer = props => {
       <div className={attachedClasses.join(' ')}>
         <Logo height="11%" marginBottom="30px" alt="Side drawer logo image" />
         <nav>
-          <Navigation />
+          <Navigation class="MobileOnly" isAuthenticated={props.isAuth}/>
         </nav>
       </div>
     </Wrapper>

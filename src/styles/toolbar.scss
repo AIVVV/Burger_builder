@@ -11,14 +11,14 @@
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 90;
-
-  nav {
-    height: 100%;
-  }
 }
 
 @media (max-width: 500px) {
   .DesktopOnly {
     display: none;
+  }
+
+  .MobileOnly {
+    display: block;
   }
 }

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Wrapper from "../../common/hoc/Wrapper";
-import Toolbar from "../Navigation/Toolbar";
-import SideDrawer from "../SideDrawer/SideDrawer";
+import Wrapper from '../../common/hoc/Wrapper';
+import Toolbar from '../../components/Navigation/Toolbar';
+import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
 class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSideDrawer: false
+      showSideDrawer: false,
     };
   }
 
@@ -25,8 +25,12 @@ class Layout extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+        <Toolbar
+          isAuth={this.props.isAuthenticate}
+          drawerToggleClicked={this.sideDrawerToggleHandler}
+        />
         <SideDrawer
+          isAuth={this.props.isAuthenticate}
           open={this.state.showSideDrawer}
           closed={this.sideDrawerCloseHandler}
         />

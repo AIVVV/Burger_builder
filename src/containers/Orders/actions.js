@@ -1,20 +1,19 @@
-import actionTypes from "./actionTypes";
-import Axios from "../../common/api/axios-orders";
+import actionTypes from './actionTypes';
+import Axios from '../../common/api/axios-orders';
 
 const helpers = {
   createOrders: ordersObject => {
-    let ordersArray = [];
-    for (let key in ordersObject) {
-      ordersArray.push({
-        ...ordersObject[key],
-        id: key
-      });
-    }
+    let ordersArray = Object.keys(ordersObject).map(order => {
+      return {
+        ...ordersObject[order],
+        id: order,
+      };
+    });
     return ordersArray;
   },
   purchaseBurgerStart: () => {
     return {
-      type: actionTypes.PURCHASE_BURGER_START
+      type: actionTypes.PURCHASE_BURGER_START,
     };
   },
   purchaseBurgerSuccess: (id, orderData) => {
@@ -22,51 +21,51 @@ const helpers = {
       type: actionTypes.PURCHASE_BURGER_SUCCESS,
       payload: {
         id: id,
-        order: orderData
-      }
+        order: orderData,
+      },
     };
   },
   purchaseBurgerFail: error => {
     return {
       type: actionTypes.PURCHASE_BURGER_FAIL,
       payload: {
-        error: error
-      }
+        error: error,
+      },
     };
   },
   fetchOrdersStart: () => {
     return {
-      type: actionTypes.FETCH_ORDERS_START
+      type: actionTypes.FETCH_ORDERS_START,
     };
   },
   fetchOrdersSuccess: orders => {
     return {
       type: actionTypes.FETCH_ORDERS_SUCCESS,
       payload: {
-        orders: orders
-      }
+        orders: orders,
+      },
     };
   },
   fetchOrdersFail: error => {
     return {
       type: actionTypes.FETCH_ORDERS_FAIL,
       payload: {
-        error: error
-      }
+        error: error,
+      },
     };
-  }
+  },
 };
 
 export const purchaseInit = () => {
   return {
-    type: actionTypes.PURCHASE_INIT
+    type: actionTypes.PURCHASE_INIT,
   };
 };
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return dispatch => {
     dispatch(helpers.purchaseBurgerStart());
-    Axios.post("orders.json", orderData)
+    Axios.post('orders.json?auth=' + token, orderData)
       .then(response => {
         dispatch(helpers.purchaseBurgerSuccess(response.data.name, orderData));
       })
@@ -76,10 +75,13 @@ export const purchaseBurger = (orderData) => {
   };
 };
 
-export const fetchOrders = () => {
-  return dispatch => {
+export const fetchOrders = token => {
+  return (dispatch, getState) => {
+    // let a = dispatch;
+    // let b = getState();
+    // debugger;
     dispatch(helpers.fetchOrdersStart());
-    Axios.get("/orders.json")
+    Axios.get('/orders.json?auth=' + token)
       .then(response => {
         let fetchedOrders = helpers.createOrders(response.data);
         dispatch(helpers.fetchOrdersSuccess(fetchedOrders));

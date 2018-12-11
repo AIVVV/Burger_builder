@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { initStore } from './reduxSources/createStore';
+import { Layout } from './exports/components-exports';
 import AppRouter from './components/AppRouter/AppRouter';
-import Layout from './components/Layout/Layout';
 
 const store = initStore();
 
