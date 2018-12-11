@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Checkout from './Chekout';
+import Checkout from './Checkout';
 
 const mapStateToProps = state => {
   return {
