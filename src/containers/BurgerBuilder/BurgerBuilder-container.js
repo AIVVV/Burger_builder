@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import BurgerBuilder from './BurgerBuilder';
 import * as actionsBurger from './actions';
 import * as actionsOrders from '../Orders/actions';
+import * as actionsAuth from '../Auth/actions';
 
 const mapStateToProps = state => {
   return {
@@ -18,7 +19,8 @@ const mapDispatchTopProps = dispatch => {
     onIngredientAdded: ing => dispatch(actionsBurger.addIngridient(ing)),
     onIngedientRemoved: ing => dispatch(actionsBurger.removeIngridient(ing)),
     onInitIngredients: () => dispatch(actionsBurger.initIngredients()),
-    onPurchaseInit: () => dispatch(actionsOrders.purchaseInit())
+    onPurchaseInit: () => dispatch(actionsOrders.purchaseInit()),
+    onAuthRedirect: (path) => dispatch(actionsAuth.helpers.authRedirect(path))
   };
 };
 

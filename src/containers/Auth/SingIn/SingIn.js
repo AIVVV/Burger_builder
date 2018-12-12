@@ -68,6 +68,12 @@ class SingIn extends React.Component {
     );
   };
 
+  componentDidMount() {
+      if(!this.props.building && this.props.authRedirectPath !== '/') {
+          this.props.onAuthRedirect('/');
+      }
+  }
+
   render() {
     let singInFormArray = Object.keys(this.state.singInForm).map(key => {
       return {
@@ -107,11 +113,7 @@ class SingIn extends React.Component {
     let isAuthRedirect = null;
 
     if (this.props.isAuthenticated) {
-      if (this.props.building) {
-        isAuthRedirect = <Redirect to={RoutePaths.TO_CHECKOUT()} />;
-      } else {
-        isAuthRedirect = <Redirect to={RoutePaths.TO_HOME()} />;
-      }
+      isAuthRedirect = <Redirect to={this.props.authRedirectPath} />;
     }
 
     return (

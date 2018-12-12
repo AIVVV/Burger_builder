@@ -7,13 +7,15 @@ const mapStateToProps = state => {
     loading: state.auth.loading,
     error: state.auth.error,
     isAuthenticated: state.auth.registered,
-    building: state.burger.building
+    building: state.burger.building,
+    authRedirectPath: state.auth.authRedirectPath
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSingIn: (email, password) => dispatch(actions.singIn(email, password))
+    onSingIn: (email, password) => dispatch(actions.singIn(email, password)),
+    onAuthRedirect: (path) => dispatch(actions.helpers.authRedirect(path))
   }
 };
 
