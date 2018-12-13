@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import SingIn from './SingIn';
 import * as actions from '../actions';
+import { actionHelpersAuth } from '../actionsHelpers';
 
 const mapStateToProps = state => {
   return {
@@ -15,7 +16,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSingIn: (email, password) => dispatch(actions.singIn(email, password)),
-    onAuthRedirect: (path) => dispatch(actions.helpers.authRedirect(path))
+    onAuthRedirect: (path) => dispatch(actionHelpersAuth.authRedirect(path))
   }
 };
 

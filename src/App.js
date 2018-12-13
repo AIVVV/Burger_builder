@@ -10,6 +10,7 @@ import AppRouter from './components/AppRouter/AppRouter';
 const store = initStore();
 
 class App extends React.Component {
+
   render() {
     return (
       <Provider store={store}>
@@ -22,5 +23,6 @@ class App extends React.Component {
     );
   }
 }
+
 
 export default App;

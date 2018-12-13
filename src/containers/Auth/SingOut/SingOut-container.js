@@ -2,12 +2,13 @@ import { connect } from 'react-redux';
 import SingOut from './SingOut';
 import { withRouter } from 'react-router-dom';
 
-import * as actions from '../actions';
+import { actionHelpersAuth } from '../actionsHelpers';
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSingOut: () => dispatch(actions.helpers.singOut())
+    onSingOut: () => dispatch(actionHelpersAuth.singOut()),
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(SingOut));
+export default withRouter(connect(null, mapDispatchToProps)(SingOut),
+);

@@ -1,75 +1,15 @@
 import axios from 'axios';
-import * as actionTypes from './actionTypes';
 
 import { localStorage } from '../../common/LocalStorage';
 import { settings, config } from '../../common/api/api-config';
+import { actionHelpersAuth } from './actionsHelpers';
 
-export const helpers = {
-  singUpStart: () => {
-    return {
-      type: actionTypes.SINGUP_START,
-    };
-  },
-  singUpSuccess: (token, userId) => {
-    return {
-      type: actionTypes.SINGUP_SUCCESS,
-      payload: {
-        token: token,
-        userId: userId,
-        registered: false,
-      },
-    };
-  },
-  singUpFail: error => {
-    return {
-      type: actionTypes.SINGUP_FAIL,
-      payload: {
-        error: error,
-      },
-    };
-  },
-
-  singInStart: () => {
-    return {
-      type: actionTypes.SINGIN_START,
-    };
-  },
-  singInSuccess: (token, userId, registered) => {
-    return {
-      type: actionTypes.SINGIN_SUCCESS,
-      payload: {
-        token: token,
-        userId: userId,
-        registered: registered,
-      },
-    };
-  },
-  singInFail: error => {
-    return {
-      type: actionTypes.SINGIN_FAIL,
-      payload: {
-        error: error,
-      },
-    };
-  },
-
-  singOut: () => {
-    localStorage.Remove('token');
-    localStorage.Remove('expirationDate');
-    localStorage.Remove('userId');
-    return {
-      type: actionTypes.SINGOUT,
-    };
-  },
-
-  authRedirect: path => {
-    return {
-      type: actionTypes.AUTH_REDIRECT_PATH,
-      payload: {
-        path: path
-      },
-    };
-  },
+const singOutTimeout = expireTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(actionHelpersAuth.singOut());
+    }, expireTime * 1000);
+  };
 };
 
 export const singUp = (email, password) => {
@@ -80,21 +20,24 @@ export const singUp = (email, password) => {
       returnSecureToken: true,
     };
 
-    dispatch(helpers.singUpStart());
+    dispatch(actionHelpersAuth.singUpStart());
     axios
       .post(
         config.authURL(settings.protocol, settings.authSingUp, settings.apiKey),
         credentials,
       )
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch(
-          helpers.singUpSuccess(response.data.idToken, response.data.localId),
+          actionHelpersAuth.singUpSuccess(
+            response.data.idToken,
+            response.data.localId,
+          ),
         );
       })
       .catch(error => {
-        dispatch(helpers.singUpFail(error.response.data.error));
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
+        dispatch(actionHelpersAuth.singUpFail(error.response.data.error));
       });
   };
 };
@@ -107,7 +50,7 @@ export const singIn = (email, password) => {
       returnSecureToken: true,
     };
 
-    dispatch(helpers.singInStart());
+    dispatch(actionHelpersAuth.singInStart());
     axios
       .post(
         config.authURL(settings.protocol, settings.authSingIn, settings.apiKey),
@@ -117,11 +60,14 @@ export const singIn = (email, password) => {
         let expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000,
         );
+
         localStorage.Save('token', response.data.idToken);
         localStorage.Save('expirationDate', expirationDate);
         localStorage.Save('userId', response.data.localId);
+        localStorage.Save('registered', response.data.registered);
+
         dispatch(
-          helpers.singInSuccess(
+          actionHelpersAuth.singInSuccess(
             response.data.idToken,
             response.data.localId,
             response.data.registered,
@@ -130,19 +76,28 @@ export const singIn = (email, password) => {
         dispatch(singOutTimeout(response.data.expiresIn));
       })
       .catch(error => {
-        dispatch(helpers.singInFail(error.response.data.error));
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
+        dispatch(actionHelpersAuth.singInFail(error.response.data.error));
       });
   };
 };
 
-const singOutTimeout = expireTime => {
+export const authChekState = () => {
   return dispatch => {
-    setTimeout(() => {
-      dispatch(helpers.singOut());
-    }, expireTime * 1000);
+    let token = localStorage.get('token');
+    if (!token) {
+      dispatch(actionHelpersAuth.singOut());
+    } else {
+      let expirationDate = new Date(localStorage.get('expirationDate'));
+
+      if (expirationDate > new Date()) {
+        dispatch(actionHelpersAuth.singOut());
+      } else {
+        let userId = localStorage.get('userId');
+        let registered = localStorage.get('registered');
+        dispatch(actionHelpersAuth.singInSuccess(token, userId, registered));
+        dispatch(singOutTimeout(expirationDate.getSeconds() - new Date().getSeconds()));
+      }
+    }
   };
 };
-
-//continue function
-const authChekState = () => {};
