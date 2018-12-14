@@ -10,7 +10,7 @@ class Orders extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onFetchOrders(this.props.token);
+    this.props.onFetchOrders(this.props.token, this.props.userId);
   }
 
   render() {

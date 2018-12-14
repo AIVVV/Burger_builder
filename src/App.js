@@ -1,28 +1,31 @@
 import React from 'react';
 
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { initStore } from './reduxSources/createStore';
 import { Layout } from './exports/components-exports';
-import AppRouter from './components/AppRouter/AppRouter';
-
-const store = initStore();
+import { AppRouter } from './exports/components-exports';
+import * as actionsAuth from './containers/Auth/actions';
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.onTryAutoSingin();
+  }
 
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <Layout>
-            <AppRouter />
-          </Layout>
-        </BrowserRouter>
-      </Provider>
+      <Layout>
+        <AppRouter />
+      </Layout>
     );
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSingin: () => dispatch(actionsAuth.authCheckState())
+  };
+};
 
-export default App;
+export default withRouter(connect(null, mapDispatchToProps)(App),
+);

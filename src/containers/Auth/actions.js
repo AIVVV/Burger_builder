@@ -82,21 +82,21 @@ export const singIn = (email, password) => {
   };
 };
 
-export const authChekState = () => {
+export const authCheckState = () => {
   return dispatch => {
-    let token = localStorage.get('token');
+    let token = localStorage.Get('token');
     if (!token) {
       dispatch(actionHelpersAuth.singOut());
     } else {
-      let expirationDate = new Date(localStorage.get('expirationDate'));
-
-      if (expirationDate > new Date()) {
+      let expirationDate = new Date(localStorage.Get('expirationDate'));
+      let currentDate = new Date();
+      if (expirationDate <= currentDate) {
         dispatch(actionHelpersAuth.singOut());
       } else {
-        let userId = localStorage.get('userId');
-        let registered = localStorage.get('registered');
+        let userId = localStorage.Get('userId');
+        let registered = localStorage.Get('registered');
         dispatch(actionHelpersAuth.singInSuccess(token, userId, registered));
-        dispatch(singOutTimeout(expirationDate.getSeconds() - new Date().getSeconds()));
+        dispatch(singOutTimeout((expirationDate.getTime() - new Date().getTime() / 1000)));
       }
     }
   };

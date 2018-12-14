@@ -75,13 +75,11 @@ export const purchaseBurger = (orderData, token) => {
   };
 };
 
-export const fetchOrders = token => {
-  return (dispatch, getState) => {
-    // let a = dispatch;
-    // let b = getState();
-    // debugger;
+export const fetchOrders = (token, userId) => {
+  return (dispatch) => {
     dispatch(helpers.fetchOrdersStart());
-    Axios.get('/orders.json?auth=' + token)
+    let params = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+    Axios.get('/orders.json' + params)
       .then(response => {
         let fetchedOrders = helpers.createOrders(response.data);
         dispatch(helpers.fetchOrdersSuccess(fetchedOrders));

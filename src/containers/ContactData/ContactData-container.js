@@ -7,7 +7,8 @@ const mapStateToProps = state => {
     ingredients: state.burger.ingredients,
     price: state.burger.totalPrice,
     loading: state.orders.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   };
 };
 

@@ -29,7 +29,9 @@ class ContactData extends React.Component {
       ingredients: this.props.ingredients,
       price: this.props.price,
       orderData: formData,
+      userId: this.props.userId
     };
+
     this.props.onOrderBurger(order, this.props.token);
   };
 
@@ -95,6 +97,8 @@ class ContactData extends React.Component {
   };
 
   render() {
+    console.log(this.props.userId);
+
     let formElementsArray = Object.keys(this.state.orderForm).map(key => {
       return {
         id: key,
