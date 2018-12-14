@@ -26,6 +26,8 @@ class AppRouter extends React.Component {
     if(this.props.isAuthenticated) {
      routes = (
        <Switch>
+         <Route path={StaticRoutes.SING_UP} component={SingUp} />
+         <Route path={StaticRoutes.SING_IN} component={SingIn} />
          <Route path={StaticRoutes.SING_OUT} component={SingOut} />
          <Route path={StaticRoutes.CHECKOUT} component={Checkout} />
          <Route path={StaticRoutes.ORDERS} component={Orders} />

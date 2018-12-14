@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
@@ -7,6 +7,7 @@ import Input from "../../../components/UI/Forms/Input";
 import Button from "../../../components/UI/Buttons/Button";
 import Spinner from "../../../components/UI/Spinners/Spinner";
 import { RoutePaths } from "../../../common/ClientRoutes";
+import { checkValidity } from "../../../common/Utility";
 
 class SingUp extends React.Component {
   constructor(props) {
@@ -16,41 +17,13 @@ class SingUp extends React.Component {
     };
   }
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    return isValid;
-  };
-
   inputChangeHandler = (event, singUpElement) => {
     let updatedSingUpForm = {
       ...this.state.singUpForm,
       [singUpElement]: {
         ...this.state.singUpForm[singUpElement],
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.singUpForm[singUpElement].validation
         ),
@@ -106,8 +79,8 @@ class SingUp extends React.Component {
 
     let isSingUpRedirect = null;
 
-    if(this.props.token !== null && this.props.token) {
-      isSingUpRedirect = <Redirect to={RoutePaths.TO_SING_IN()}/>
+    if (this.props.token !== null && this.props.token) {
+      isSingUpRedirect = <Redirect to={RoutePaths.TO_SING_IN()} />;
     }
 
     return (

@@ -27,7 +27,6 @@ export const singUp = (email, password) => {
         credentials,
       )
       .then(response => {
-        // console.log(response.data);
         dispatch(
           actionHelpersAuth.singUpSuccess(
             response.data.idToken,
@@ -36,7 +35,6 @@ export const singUp = (email, password) => {
         );
       })
       .catch(error => {
-        // console.log(error.response.data.error);
         dispatch(actionHelpersAuth.singUpFail(error.response.data.error));
       });
   };
@@ -76,7 +74,6 @@ export const singIn = (email, password) => {
         dispatch(singOutTimeout(response.data.expiresIn));
       })
       .catch(error => {
-        // console.log(error.response.data.error);
         dispatch(actionHelpersAuth.singInFail(error.response.data.error));
       });
   };

@@ -1,12 +1,12 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import { RoutePaths } from "../../../common/ClientRoutes";
 import { AuthFormConfig } from "../../../common/configs/AuthFormConfig";
 import Wrapper from "../../../common/hoc/Wrapper";
 import Input from "../../../components/UI/Forms/Input";
 import Button from "../../../components/UI/Buttons/Button";
 import Spinner from "../../../components/UI/Spinners/Spinner";
+import { checkValidity } from "../../../common/Utility";
 
 class SingIn extends React.Component {
   constructor(props) {
@@ -16,41 +16,13 @@ class SingIn extends React.Component {
     };
   }
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    return isValid;
-  };
-
   inputChangeHandler = (event, singInElement) => {
     let updatedSingInForm = {
       ...this.state.singInForm,
       [singInElement]: {
         ...this.state.singInForm[singInElement],
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.singInForm[singInElement].validation
         ),
@@ -69,9 +41,9 @@ class SingIn extends React.Component {
   };
 
   componentDidMount() {
-      if(!this.props.building && this.props.authRedirectPath !== '/') {
-          this.props.onAuthRedirect('/');
-      }
+    if (!this.props.building && this.props.authRedirectPath !== "/") {
+      this.props.onAuthRedirect("/");
+    }
   }
 
   render() {
