@@ -71,8 +71,6 @@ class ContactData extends React.Component {
   };
 
   render() {
-    console.log(this.props.userId);
-
     let formElementsArray = Object.keys(this.state.orderForm).map(key => {
       return {
         id: key,
