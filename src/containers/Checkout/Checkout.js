@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary';
 import { ContactData } from '../../exports/components-exports';
 import {RoutePaths, StaticRoutes } from '../../common/ClientRoutes';
-import Wrapper from '../../common/components/Wrapper';
+import Wrapper from '../../common/hoc/Wrapper';
 
 class Checkout extends React.Component {
   checkoutCancelledHandler = () => {
